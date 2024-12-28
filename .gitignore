@@ -1,0 +1,13 @@
+.DS_Store
+*.o
+*.a
+
+obj/
+bin/
+build/
+*.out
+
+pipex
+out*
+input-txt*
+input.txt
