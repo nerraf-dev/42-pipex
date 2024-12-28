@@ -9,5 +9,6 @@ build/
 
 pipex
 out*
+in
 input-txt*
 input.txt

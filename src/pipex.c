@@ -11,8 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
-// #include <stdio.h>
-// #include <fcntl.h>
+#include <sys/wait.h>
 
 int	main(int argc, char **argv, char **envp)
 {
