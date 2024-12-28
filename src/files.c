@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:32:01 by sfarren           #+#    #+#             */
-/*   Updated: 2024/12/28 17:40:08 by sfarren          ###   ########.fr       */
+/*   Updated: 2024/12/28 18:47:44 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,17 @@ void	open_files(char **argv, int *fd)
 		close(fd[0]);
 		exit(EXIT_FAILURE);
 	}
+}
+
+int	open_file(char *file, int flags)
+{
+	int	fd;
+
+	fd = open(file, flags);
+	if (fd == -1)
+	{
+		perror("open");
+		exit(EXIT_FAILURE);
+	}
+	return (fd);
 }

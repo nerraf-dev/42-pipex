@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:00:48 by sfarren           #+#    #+#             */
-/*   Updated: 2024/12/28 17:41:11 by sfarren          ###   ########.fr       */
+/*   Updated: 2024/12/28 18:48:01 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	execute_command(char *cmd, char **envp);
 
 // files.c
 void	open_files(char **argv, int *fd);
+int		open_file(char *file, int flags);
 
 #endif
