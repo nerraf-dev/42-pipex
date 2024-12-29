@@ -1,33 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmds.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/28 17:26:09 by sfarren           #+#    #+#             */
-/*   Updated: 2024/12/29 14:20:39 by sfarren          ###   ########.fr       */
+/*   Created: 2024/12/29 14:10:02 by sfarren           #+#    #+#             */
+/*   Updated: 2024/12/29 14:21:11 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	execute_command(char *cmd, char **envp)
+void	dup2_wrapper(int oldfd, int newfd)
 {
-	char	**argv;
-
-	argv = (char **)malloc(sizeof(char *) * 4);
-	if (!argv)
+	if (dup2(oldfd, newfd) == -1)
 	{
-		perror("malloc");
+		perror("dup2");
 		exit(EXIT_FAILURE);
 	}
-	argv[0] = "/bin/sh";
-	argv[1] = "-c";
-	argv[2] = cmd;
-	argv[3] = NULL;
-	execve("/bin/sh", argv, envp);
-	perror("execve");
-	free(argv);
-	exit(EXIT_FAILURE);
+}
+
+void	close_fds(int *fds, int count)
+{
+	int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		close(fds[i]);
+		i++;
+	}
+}
+
+pid_t	fork_child(void)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("Fork");
+		exit(EXIT_FAILURE);
+	}
+	return (pid);
 }

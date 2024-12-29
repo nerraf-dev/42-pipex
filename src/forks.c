@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmds.c                                             :+:      :+:    :+:   */
+/*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/28 17:26:09 by sfarren           #+#    #+#             */
-/*   Updated: 2024/12/29 14:20:39 by sfarren          ###   ########.fr       */
+/*   Created: 2024/12/29 13:45:41 by sfarren           #+#    #+#             */
+/*   Updated: 2024/12/29 13:50:46 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	execute_command(char *cmd, char **envp)
+pid_t	fork_child(void)
 {
-	char	**argv;
+	pid_t	pid;
 
-	argv = (char **)malloc(sizeof(char *) * 4);
-	if (!argv)
+	pid = fork();
+	if (pid == -1)
 	{
-		perror("malloc");
+		perror("Fork");
 		exit(EXIT_FAILURE);
 	}
-	argv[0] = "/bin/sh";
-	argv[1] = "-c";
-	argv[2] = cmd;
-	argv[3] = NULL;
-	execve("/bin/sh", argv, envp);
-	perror("execve");
-	free(argv);
-	exit(EXIT_FAILURE);
+	return (pid);
 }

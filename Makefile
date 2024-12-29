@@ -6,7 +6,7 @@
 #    By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/12 11:30:00 by sfarren           #+#    #+#              #
-#    Updated: 2024/12/28 17:40:41 by sfarren          ###   ########.fr        #
+#    Updated: 2024/12/29 14:11:21 by sfarren          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ INCLUDE_DIR = include
 LIBFT_DIR = $(LIB_DIR)/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC_FILES = pipex.c pipe.c files.c cmds.c
+SRC_FILES = pipex.c pipe.c files.c cmds.c processes.c utils.c
 SRC = $(foreach file, $(SRC_FILES), $(SRC_DIR)/$(file))
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 

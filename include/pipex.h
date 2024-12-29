@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:00:48 by sfarren           #+#    #+#             */
-/*   Updated: 2024/12/28 18:48:01 by sfarren          ###   ########.fr       */
+/*   Updated: 2024/12/29 14:20:00 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "../lib/include/libft.h"
 # include <stdio.h>
 # include <fcntl.h>
+# include <sys/wait.h>
 
 // pipe.c
 int		create_pipe(int *pipefd);
@@ -29,5 +30,15 @@ void	execute_command(char *cmd, char **envp);
 // files.c
 void	open_files(char **argv, int *fd);
 int		open_file(char *file, int flags);
+
+// processes.c
+void	first_child_handler(int *pipefd, int fd, char **argv, char **envp);
+void	second_child_handler(int *pipefd, char **argv, char **envp);
+void	main_cleanup(int *pipefd, int fd);
+
+// utils.c
+pid_t	fork_child(void);
+void	dup2_wrapper(int oldfd, int newfd);
+void	close_fds(int *fds, int count);
 
 #endif
