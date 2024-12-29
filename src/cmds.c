@@ -6,11 +6,12 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:26:09 by sfarren           #+#    #+#             */
-/*   Updated: 2024/12/29 14:20:39 by sfarren          ###   ########.fr       */
+/*   Updated: 2024/12/29 19:06:46 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
+
 
 void	execute_command(char *cmd, char **envp)
 {
@@ -27,7 +28,9 @@ void	execute_command(char *cmd, char **envp)
 	argv[2] = cmd;
 	argv[3] = NULL;
 	execve("/bin/sh", argv, envp);
-	perror("execve");
+	// ft_printf_fd(STDERR_FILENO, "pipex: line 1: %s: command not found\n", cmd);
+	ft_printf_fd(STDERR_FILENO, "pipex: line 1: %s: %s\n", cmd, strerror(errno));
+	// perror("execve");
 	free(argv);
-	exit(EXIT_FAILURE);
+	exit(127);
 }

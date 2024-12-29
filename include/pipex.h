@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:00:48 by sfarren           #+#    #+#             */
-/*   Updated: 2024/12/29 14:20:00 by sfarren          ###   ########.fr       */
+/*   Updated: 2024/12/29 19:09:29 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <errno.h>
+# include <string.h>
 
 // pipe.c
 int		create_pipe(int *pipefd);

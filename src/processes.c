@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 11:27:27 by sfarren           #+#    #+#             */
-/*   Updated: 2024/12/29 15:40:32 by sfarren          ###   ########.fr       */
+/*   Updated: 2024/12/29 19:07:37 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	first_child_handler(int *pipefd, int fd, char **argv, char **envp)
 {
 	pid_t	pid;
-	int		status;
+	// int		status;
 
 	pid = fork_child();
 	if (pid == 0)
@@ -25,17 +25,11 @@ void	first_child_handler(int *pipefd, int fd, char **argv, char **envp)
 		close_fds(pipefd, 2);
 		close(fd);
 		execute_command(argv[2], envp);
-		perror("execute_command");
-		exit(EXIT_FAILURE);
+		ft_printf_fd(STDERR_FILENO, "pipex: line 1: %s: %s\n", argv[2], strerror(errno));
+		exit(127);
 	}
 	close(pipefd[1]);
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-	{
-		close(pipefd[0]);
-		close(fd);
-		exit(WEXITSTATUS(status));
-	}
+	waitpid(pid, NULL, 0);
 }
 
 void	second_child_handler(int *pipefd, char **argv, char **envp)
@@ -53,8 +47,8 @@ void	second_child_handler(int *pipefd, char **argv, char **envp)
 		close_fds(pipefd, 2);
 		close(fd);
 		execute_command(argv[3], envp);
-		perror("execute_command");
-		exit(EXIT_FAILURE);
+		ft_printf_fd(STDERR_FILENO, "pipex: line 1: %s: %s\n", argv[3], strerror(errno));
+		exit(127);
 	}
 	close(pipefd[0]);
 	waitpid(pid, &status, 0);
