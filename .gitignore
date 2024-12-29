@@ -5,9 +5,13 @@
 obj/
 bin/
 build/
+pipexMedic/
+
 *.out
 
 pipex
+pipexMedic
+
 out*
 in
 input-txt*

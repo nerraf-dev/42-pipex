@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:32:01 by sfarren           #+#    #+#             */
-/*   Updated: 2024/12/29 11:40:35 by sfarren          ###   ########.fr       */
+/*   Updated: 2024/12/29 15:51:42 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	open_files(char **argv, int *fd)
 	if (fd[0] == -1)
 	{
 		perror("input file");
-		exit(EXIT_FAILURE);
+		fd[0] = open("/dev/null", O_RDONLY); // Open /dev/null if input file is missing
 	}
 	fd[1] = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd[1] == -1)
