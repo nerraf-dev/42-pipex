@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 15:53:44 by sfarren           #+#    #+#             */
-/*   Updated: 2024/12/29 14:20:59 by sfarren          ###   ########.fr       */
+/*   Updated: 2024/12/30 14:07:03 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	int		pipefd[2];
 	int		fd;
+	int		status;
 
 	if (argc != 5)
 	{
@@ -27,5 +28,8 @@ int	main(int argc, char **argv, char **envp)
 	first_child_handler(pipefd, fd, argv, envp);
 	second_child_handler(pipefd, argv, envp);
 	main_cleanup(pipefd, fd);
+	waitpid(-1, &status, 0);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
 	return (0);
 }

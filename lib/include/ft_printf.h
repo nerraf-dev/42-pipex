@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 19:20:31 by sfarren           #+#    #+#             */
-/*   Updated: 2024/12/10 12:13:03 by sfarren          ###   ########.fr       */
+/*   Updated: 2024/12/29 17:49:33 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,20 @@
 int		ft_printf(const char *str, ...);
 
 /**
+ * Prints formatted output to a file descriptor.
+ *
+ * This function takes a file descriptor `fd`, a format string `str`, and a variable
+ * number of arguments, and prints the formatted output to the specified file descriptor.
+ * It supports various format specifiers, such as `%d` for integers, `%s` for strings, etc.
+ *
+ * @param fd  The file descriptor to which the output should be printed.
+ * @param str The format string specifying the output format.
+ * @param ... The variable number of arguments to be formatted and printed.
+ * @return total number of chars printed, or a negative value if error occurs.
+ */
+int		ft_printf_fd(int fd, const char *str, ...);
+
+/**
  * Prints a long long integer in a specified base.
  *
  * This function prints the given long long integer `n` in the specified `base`.
@@ -78,6 +92,15 @@ char	*ft_utoa(unsigned int n);
  * @param count  keeps track of the number of characters printed.
  */
 void	ft_printchr(char c, int *count);
+
+/**
+ * Prints a character to a file descriptor.
+ *
+ * @param c     The character to be printed.
+ * @param count  keeps track of the number of characters printed.
+ * @param fd    The file descriptor to which the character should be printed.
+ */
+void	ft_printchr_fd(char c, int *count, int fd);
 
 /**
  * Prints a string.

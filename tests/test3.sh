@@ -26,4 +26,4 @@ else
 fi
 
 # Clean up
-rm input.txt
+# rm input.txt
