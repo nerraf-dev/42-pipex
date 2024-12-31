@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:26:09 by sfarren           #+#    #+#             */
-/*   Updated: 2024/12/30 15:31:22 by sfarren          ###   ########.fr       */
+/*   Updated: 2024/12/31 14:29:01 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	execute_command(char *cmd, char **envp)
 {
 	char	**argv;
+	char	*line;
 	char	buffer[256];
 	ssize_t	bytes_read;
 	int		pipefd[2];
@@ -51,16 +52,30 @@ void	execute_command(char *cmd, char **envp)
 	else
 	{
 		close(pipefd[1]);
-		bytes_read = read(pipefd[0], buffer, sizeof(buffer) - 1);
-		if (bytes_read > 0)
+		line = get_next_line(pipefd[0]);
+		while (line != NULL)
 		{
-			buffer[bytes_read] = '\0';
-			len = ft_strlen(buffer);
-			if (ft_strnstr(buffer, "not found", len) != NULL)
-				ft_printf_fd(STDERR_FILENO, "pipex: line 1: %s: command not found\n", cmd);
+			if (strstr(line, "not found") != NULL)
+			{
+				ft_printf_fd(STDERR_FILENO, "pipex: line 1: %s: %s", cmd, line);
+			}
 			else
-				ft_printf_fd(STDERR_FILENO, "%s", buffer);
+			{
+				ft_printf_fd(STDERR_FILENO, "%s", line);
+			}
+			free(line);
+			line = get_next_line(pipefd[0]);
 		}
+		// bytes_read = read(pipefd[0], buffer, sizeof(buffer) - 1);
+		// if (bytes_read > 0)
+		// {
+		// 	buffer[bytes_read] = '\0';
+		// 	len = ft_strlen(buffer);
+		// 	if (ft_strnstr(buffer, "not found", len) != NULL)
+		// 		ft_printf_fd(STDERR_FILENO, "pipex: line 1: %s: command not found\n", cmd);
+		// 	else
+		// 		ft_printf_fd(STDERR_FILENO, "%s", buffer);
+		// }
 		close(pipefd[0]);
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
