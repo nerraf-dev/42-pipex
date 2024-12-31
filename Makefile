@@ -6,7 +6,7 @@
 #    By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/12 11:30:00 by sfarren           #+#    #+#              #
-#    Updated: 2024/12/29 14:11:21 by sfarren          ###   ########.fr        #
+#    Updated: 2024/12/31 17:34:54 by sfarren          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,9 @@ OBJ_DIR = obj
 LIB_DIR = lib
 INCLUDE_DIR = include
 LIBFT_DIR = $(LIB_DIR)/libft
-LIBFT = $(LIBFT_DIR)/libft.a
+LIBFT = $(LIBFT_DIR)/libft
+GNL_DIR = $(LIB_DIR)/gnl
+GNL = $(GNL_DIR)/gnl
 
 SRC_FILES = pipex.c pipe.c files.c cmds.c processes.c utils.c
 SRC = $(foreach file, $(SRC_FILES), $(SRC_DIR)/$(file))
@@ -40,10 +42,16 @@ $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 	@echo "*** Build complete: libft ***"
 
+# Build gnl
+$(GNL):
+	@echo "*** Building gnl... ***"
+	$(MAKE) -C $(GNL_DIR)
+	@echo "*** Build complete: gnl ***"
+
 # Build main project
-$(NAME): $(OBJS) $(LIBFT)
+$(NAME): $(OBJS) $(LIBFT) $(GNL)
 	@echo "Building main project..."
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L$(LIBFT_DIR) -lft
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L$(LIBFT_DIR) -lft -L$(GNL_DIR) -lgnl
 	@echo "Build complete: $(NAME)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
@@ -57,6 +65,7 @@ $(OBJ_DIR):
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
+	$(MAKE) -C $(GNL_DIR) clean
 	rm -f $(OBJS)
 	rm -rf $(OBJ_DIR)
 

@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:00:48 by sfarren           #+#    #+#             */
-/*   Updated: 2024/12/29 19:09:29 by sfarren          ###   ########.fr       */
+/*   Updated: 2024/12/31 17:29:21 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 // # include <stdlib.h>
 // # include <unistd.h>
 # include "../lib/include/libft.h"
+# include "../lib/include/get_next_line.h"
 # include <stdio.h>
 # include <fcntl.h>
 # include <sys/wait.h>

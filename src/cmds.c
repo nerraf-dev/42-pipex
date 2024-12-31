@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:26:09 by sfarren           #+#    #+#             */
-/*   Updated: 2024/12/31 14:29:01 by sfarren          ###   ########.fr       */
+/*   Updated: 2024/12/31 17:32:25 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	execute_command(char *cmd, char **envp)
 {
 	char	**argv;
 	char	*line;
-	char	buffer[256];
-	ssize_t	bytes_read;
+	// char	buffer[256];
+	// ssize_t	bytes_read;
 	int		pipefd[2];
 	pid_t	pid;
 	int		status;
 	int		exit_status;
-	int		len;
+	// int		len;
 
 	if (pipe(pipefd) == -1)
 	{
