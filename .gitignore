@@ -12,3 +12,6 @@ out*
 in
 input-txt*
 input.txt
+
+libft.a
+libgnl.a
