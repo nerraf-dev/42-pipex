@@ -6,7 +6,7 @@
 #    By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/12 11:30:00 by sfarren           #+#    #+#              #
-#    Updated: 2024/12/31 17:34:54 by sfarren          ###   ########.fr        #
+#    Updated: 2024/12/31 17:43:42 by sfarren          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,9 @@ OBJ_DIR = obj
 LIB_DIR = lib
 INCLUDE_DIR = include
 LIBFT_DIR = $(LIB_DIR)/libft
-LIBFT = $(LIBFT_DIR)/libft
+LIBFT = $(LIBFT_DIR)/libft.a
 GNL_DIR = $(LIB_DIR)/gnl
-GNL = $(GNL_DIR)/gnl
+GNL = $(GNL_DIR)/libgnl.a
 
 SRC_FILES = pipex.c pipe.c files.c cmds.c processes.c utils.c
 SRC = $(foreach file, $(SRC_FILES), $(SRC_DIR)/$(file))
