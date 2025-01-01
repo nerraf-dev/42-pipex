@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 11:27:27 by sfarren           #+#    #+#             */
-/*   Updated: 2024/12/29 19:07:37 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/01 18:58:02 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	first_child_handler(int *pipefd, int fd, char **argv, char **envp)
 {
 	pid_t	pid;
-	// int		status;
+	int		status;
 
 	pid = fork_child();
 	if (pid == 0)
@@ -29,14 +29,27 @@ void	first_child_handler(int *pipefd, int fd, char **argv, char **envp)
 		exit(127);
 	}
 	close(pipefd[1]);
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
+	{
+		close(pipefd[0]);
+		exit(WEXITSTATUS(status));
+	}
 }
 
-void	second_child_handler(int *pipefd, char **argv, char **envp)
+void	second_child_handler(int *pipefd, char **argv, char **envp, int cmd_status)
 {
 	int		fd;
 	pid_t	pid;
 	int		status;
+
+	ft_printf("cmd_status: %d\n", cmd_status);
+	if (cmd_status != 0)
+	{
+		close(pipefd[0]);
+		return;
+	}
+
 
 	pid = fork_child();
 	if (pid == 0)
