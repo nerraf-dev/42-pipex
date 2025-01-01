@@ -15,10 +15,15 @@ echo "Test 2: cat non_existent_file | wc -w"
 # Run your program with a non-existent input file
 "$PIPEX_PATH" non_existent_file "cat" "wc -w" output.txt
 
-# Check the output
-if [ ! -f output.txt ]; then
-    echo "Test 2 passed"
+
+expected_output=$(cat non_existent_file | wc -w)
+actual_output=$(cat output.txt)
+if [ "$actual_output" == "$expected_output" ]; then
+    echo -e "${GREEN}Test 2 passed${NC}"
 else
-    echo "Test 2 failed"
-    rm output.txt
+    echo -e "${RED}Test 2 failed${NC}"
+    echo "Expected: $expected_output"
+    echo "Got: $actual_output"
 fi
+rm output.txt
+

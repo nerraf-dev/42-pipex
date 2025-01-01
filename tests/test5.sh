@@ -18,7 +18,7 @@ touch input.txt
 "$PIPEX_PATH" input.txt "cat" "wc -w" output.txt
 
 # Check the output
-expected_output="0"
+expected_output=$(cat input.txt | wc -w)
 actual_output=$(cat output.txt)
 
 if [ "$actual_output" == "$expected_output" ]; then
