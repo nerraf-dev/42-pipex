@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 11:27:27 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/01 19:15:36 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/02 12:52:38 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,19 @@ void	first_child_handler(int *pipefd, int fd, char **argv, char **envp)
 	}
 }
 
-void	second_child_handler(int *pipefd, char **argv, char **envp, int cmd_status)
+void	second_child_handler(int *pipefd, char **argv, char **envp)
 {
 	int		fd;
 	pid_t	pid;
 	int		status;
 
-	ft_printf("cmd_status: %d\n", cmd_status);
-	if (cmd_status != 0)
-	{
-		close(pipefd[0]);
-		ft_printf_fd(STDERR_FILENO, "pipex: %s: open: No such file or directory\n", argv[4]);
-		return;
-	}
+	// ft_printf("cmd_status: %d\n", cmd_status);
+	// if (cmd_status != 0)
+	// {
+	// 	close(pipefd[0]);
+	// 	ft_printf_fd(STDERR_FILENO, "pipex: %s: open: No such file or directory\n", argv[4]);
+	// 	return;
+	// }
 
 	pid = fork_child();
 	if (pid == 0)

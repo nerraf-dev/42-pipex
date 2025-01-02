@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:26:09 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/01 18:56:39 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/02 12:35:18 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,13 @@
 void	execute_command(char *cmd, char **envp)
 {
 	char	**argv;
-	// char	*line;
+	char	*line;
 	int		pipefd[2];
 	pid_t	pid;
 	int		status;
-	// int		exit_status;
+	int		exit_status;
 
-	if (pipe(pipefd) == -1)
-	{
-		perror("pipe");
-		exit(EXIT_FAILURE);
-	}
+	create_pipe(pipefd);
 	argv = (char **)malloc(sizeof(char *) * 4);
 	if (!argv)
 	{
@@ -49,82 +45,35 @@ void	execute_command(char *cmd, char **envp)
 	else
 	{
 		close(pipefd[1]);
+		line = get_next_line(pipefd[0]);
+		while (line != NULL)
+		{
+			if (strstr(line, "not found") != NULL)
+			{
+				ft_printf_fd(STDERR_FILENO, "pipex: line 1: %s: %s", cmd, line);
+			}
+			else
+			{
+				ft_printf_fd(STDERR_FILENO, "%s", line);
+			}
+			free(line);
+			line = get_next_line(pipefd[0]);
+		}
+		close(pipefd[0]);
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 		{
-			int exit_status = WEXITSTATUS(status);
+			exit_status = WEXITSTATUS(status);
 			if (exit_status == 127)
 			{
 				ft_printf_fd(STDERR_FILENO, "pipex: line 1: %s: command not found\n", cmd);
 				exit(127);
 			}
 			else
-			{
 				exit(exit_status);
-			}
 		}
 	}
 	free(argv);
 	exit(EXIT_FAILURE);
-	// else
-	// {
-	// 	close(pipefd[1]);
-	// 	line = get_next_line(pipefd[0]);
-	// 	while (line != NULL)
-	// 	{
-	// 		if (strstr(line, "not found") != NULL)
-	// 		{
-	// 			ft_printf_fd(STDERR_FILENO, "pipex: line 1: %s: %s", cmd, line);
-	// 		}
-	// 		else
-	// 		{
-	// 			ft_printf_fd(STDERR_FILENO, "%s", line);
-	// 		}
-	// 		free(line);
-	// 		line = get_next_line(pipefd[0]);
-	// 	}
-	// 	close(pipefd[0]);
-	// 	waitpid(pid, &status, 0);
-	// 	if (WIFEXITED(status))
-	// 	{
-	// 		exit_status = WEXITSTATUS(status);
-	// 		if (exit_status == 127)
-	// 		{
-	// 			exit(127);
-	// 		}
-	// 		else
-	// 		{
-	// 			exit(exit_status);
-	// 		}
-	// 	}
-	// }
-	// free(argv);
-	// exit(EXIT_FAILURE);
 }
 
-// void	execute_command(char *cmd, char **envp)
-// {
-// 	char	**argv;
-
-// 	argv = (char **)malloc(sizeof(char *) * 4);
-// 	if (!argv)
-// 	{
-// 		perror("malloc");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	argv[0] = "/bin/sh";
-// 	argv[1] = "-c";
-// 	argv[2] = cmd;
-// 	argv[3] = NULL;
-// 	// // Check command exists:
-// 	// if (access(cmd, F_OK) == -1)
-// 	// {
-// 	// 	ft_printf_fd(STDERR_FILENO, "pipex: line 1: %s: %s\n", cmd, strerror(errno));
-// 	// 	free(argv);
-// 	// 	exit(0);
-// 	// }
-// 	execve("/bin/sh", argv, envp);
-// 	ft_printf_fd(STDERR_FILENO, "pipex: line 1: %s: %s\n", cmd, strerror(errno));
-// 	free(argv);
-// 	exit(0);
-// }

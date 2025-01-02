@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:32:01 by sfarren           #+#    #+#             */
-/*   Updated: 2024/12/29 19:09:07 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/02 13:05:48 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ int	open_file(char *file, int flags)
 	if (fd == -1)
 	{
 		ft_printf_fd(STDERR_FILENO, "pipex: line 1: %s: %s\n", file, strerror(errno));
-		// exit(EXIT_FAILURE);
-		fd = open_file("/dev/null", O_RDONLY);
+		if (flags == O_RDONLY)
+			fd = open("/dev/null", O_RDONLY); // Open /dev/null if input file is missing
+		else
+			exit(EXIT_FAILURE);
 	}
 	return (fd);
 }
