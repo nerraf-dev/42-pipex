@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 15:53:44 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/02 13:06:03 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/02 16:27:11 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,15 @@ int	main(int argc, char **argv, char **envp)
 	int		fd;
 	int		status;
 
-	if (argc != 5)
+
+	if (argc == 5)
+	{
+		
+
+	}
+	else
 	{
 		ft_printf("Usage: %s file1 cmd1 cmd2 file2\n", argv[0]);
-		return (1);
 	}
 	create_pipe(pipefd);
 	fd = open_file(argv[1], O_RDONLY);
