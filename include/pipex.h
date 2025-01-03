@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:00:48 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/02 12:52:44 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/03 13:12:40 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,15 @@ void	open_files(char **argv, int *fd);
 int		open_file(char *file, int flags);
 
 // processes.c
-void	first_child_handler(int *pipefd, int fd, char **argv, char **envp);
-void	second_child_handler(int *pipefd, char **argv, char **envp);
+void	child_handler(int *fd, char **argv, char **envp);
+void	parent_handler(int *pipefd, char **argv, char **envp);
 void	main_cleanup(int *pipefd, int fd);
 
 // utils.c
 pid_t	fork_child(void);
 void	dup2_wrapper(int oldfd, int newfd);
 void	close_fds(int *fds, int count);
+char	*get_path(char *cmd, char **envp);
+void	error(void);
 
 #endif

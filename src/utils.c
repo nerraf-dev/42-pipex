@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 14:10:02 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/02 22:55:30 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/03 12:57:13 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_path(char *cmd, char **envp)
 		free(path);
 		i++;
 	}
-	i = -1;qsort
+	i = -1;
 	while (paths[++i])
 		free(paths[i]);
 	free(paths);

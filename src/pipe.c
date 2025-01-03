@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 16:47:52 by sfarren           #+#    #+#             */
-/*   Updated: 2024/12/28 16:59:19 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/03 12:56:08 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 int	create_pipe(int *pipefd)
 {
 	if (pipe(pipefd) == -1)
-	{
-		perror("pipe error");
-		exit(EXIT_FAILURE);
-	}
+		error();
 	return (0);
 }
+
+	// {
+	// 	perror("pipe error");
+	// 	exit(EXIT_FAILURE);
+	// }
