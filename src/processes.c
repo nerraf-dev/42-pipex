@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 11:27:27 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/03 13:15:23 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/03 16:05:26 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,6 @@ void	child_handler(int *fd, char **argv, char **envp)
 	dup2_wrapper(fd[1], STDOUT_FILENO);
 	close(file_in);
 	execute_command(argv[2], envp);
-	// ft_printf_fd(STDERR_FILENO, "pipex: line 1: %s: %s\n", argv[2], strerror(errno));
-	// exit(127);
-	// close(fd[1]);
-	// waitpid(pid, &status, 0);
-	// if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-	// {
-	// 	close(fd[0]);
-	// 	exit(WEXITSTATUS(status));
-	// }
 }
 
 void	parent_handler(int *fd, char **argv, char **envp)

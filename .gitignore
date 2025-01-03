@@ -19,3 +19,7 @@ input.txt
 
 libft.a
 libgnl.a
+test-out.txt
+expected_output.txt
+expected_error.txt
+error.txt

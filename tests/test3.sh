@@ -2,13 +2,6 @@
 
 # This script tests the error handling of the pipex program when an invalid command is given as an argument.
 
-#  Testing: < input.txt invalid_command | wc -w > output.txt
-#  Testing: ./pipex input.txt invalid_command wc -w output.txt
-
-# Expected error messages:
-# 1. bash: invalid_command: command not found
-
-
 # Define color codes
 GREEN='\033[0;32m'
 RED='\033[0;31m'
@@ -23,39 +16,26 @@ echo "Test 3: invalid_command"
 # Create input files
 echo "Hello, World!" > input.txt
 
-# Run the standard bash command and capture the error output
-bash_error_output=$( { < input.txt invalid_command | wc -w > output.txt; } 2>&1 )
+# Run the shell command
+invalid_command < input.txt 2> expected_error.txt | wc -w > expected_output.txt
 
-# Run your program with an invalid command and capture the error output
-pipex_error_output=$("$PIPEX_PATH" input.txt "invalid_command" "wc -w" output.txt 2>&1)
 
-# Check if the output file was not created
-if [ ! -f output.txt ]; then
-    echo -e "${GREEN}Test 3 passed${NC}"
+# Run the pipex command
+"$PIPEX_PATH" input.txt "invalid_command" "wc -w" output.txt 2> error.txt
+
+# Compare the outputs
+if diff -q expected_output.txt output.txt && diff -q expected_error.txt error.txt; then
+    echo -e "${GREEN}Test 3 passed!${NC}"
 else
-    echo -e "${RED}Test 3 failed${NC}"
-    rm -f output.txt expected_output.txt error_output.txt
-fi
-
-# Check the error output
-expected_error1="command not found"
-expected_error2="open: No such file or directory"
-if echo "$error_output" | grep -q "$expected_error1" && echo "$error_output" | grep -q "$expected_error2"; then
-    echo -e "${GREEN}Error messages are correct${NC}"
-else
-    echo -e "${RED}Error messages are incorrect${NC}"
-    echo "Expected error messages: $expected_error1, $expected_error2"
-    echo "Actual error message: $error_output"
-fi
-
-# Compare bash and pipex error outputs
-if [ "$bash_error_output" == "$error_output" ]; then
-    echo -e "${GREEN}Bash and Pipex error outputs match${NC}"
-else
-    echo -e "${RED}Bash and Pipex error outputs do not match${NC}"
-    echo "Bash error output: $bash_error_output"
-    echo "Pipex error output: $error_output"
+    echo -e "${RED}Test 3 failed!${NC}"
+    echo "Differences in output:"
+    cat expected_output.txt
+    cat output.txt
+    # diff expected_output.txt output.txt
+    echo "Differences in error:"
+    cat expected_error.txt
+    cat error.txt
 fi
 
 # Clean up
-rm -f input.txt
+# rm -f input.txt expected_output.txt output.txt expected_error.txt error.txt
