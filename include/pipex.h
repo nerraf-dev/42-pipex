@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:00:48 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/03 13:12:40 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/03 18:22:08 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,11 @@ void	main_cleanup(int *pipefd, int fd);
 pid_t	fork_child(void);
 void	dup2_wrapper(int oldfd, int newfd);
 void	close_fds(int *fds, int count);
-char	*get_path(char *cmd, char **envp);
+// char	*get_path(char *cmd, char **envp);
 void	error(void);
+
+// split.c
+char	**split_command(char *str);
+
 
 #endif

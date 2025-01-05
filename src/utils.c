@@ -6,40 +6,13 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 14:10:02 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/03 12:57:13 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/03 18:21:51 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-char	*get_path(char *cmd, char **envp)
-{
-	char	*path;
-	char	**paths;
-	char	*dir_path;
-	int		i;
 
-	i = 0;
-	while (ft_strnstr(envp[i], "PATH=", 5) == 0)
-		i++;
-	paths = ft_split(envp[i] + 5, ':');
-	i = 0;
-	while (paths[i])
-	{
-		dir_path = ft_strjoin(paths[i], "/");
-		path = ft_strjoin(dir_path, cmd);
-		free(dir_path);
-		if (access(path, F_OK) == 0)
-			return (path);
-		free(path);
-		i++;
-	}
-	i = -1;
-	while (paths[++i])
-		free(paths[i]);
-	free(paths);
-	return (0);
-}
 
 void	dup2_wrapper(int oldfd, int newfd)
 {

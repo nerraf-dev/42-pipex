@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 15:53:44 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/03 16:06:03 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/03 20:51:40 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ int	main(int argc, char **argv, char **envp)
 {
 	int		fd[2];
 	pid_t	pid1;
+	// int		i;
 
+	if (envp == NULL || envp[0] == NULL)
+		envp = NULL;
 	if (argc == 5)
 	{
 		create_pipe(fd);
@@ -35,7 +38,6 @@ int	main(int argc, char **argv, char **envp)
 		ft_printf_fd(2, "\033[31mError: Bad arguments\n\e[0m");
 		ft_printf("Usage: %s file1 cmd1 cmd2 file2\n", argv[0]);
 	}
-	// close pipe
 	close(fd[0]);
 	close(fd[1]);
 	return (0);
