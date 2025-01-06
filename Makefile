@@ -6,7 +6,7 @@
 #    By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/12 11:30:00 by sfarren           #+#    #+#              #
-#    Updated: 2025/01/03 18:13:20 by sfarren          ###   ########.fr        #
+#    Updated: 2025/01/06 16:48:14 by sfarren          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 GNL_DIR = $(LIB_DIR)/gnl
 GNL = $(GNL_DIR)/libgnl.a
 
-SRC_FILES = pipex.c pipe.c files.c cmds.c processes.c utils.c split.c
+SRC_FILES = pipex.c pipe.c files.c cmds.c paths.c processes.c utils.c split.c
 SRC = $(foreach file, $(SRC_FILES), $(SRC_DIR)/$(file))
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 

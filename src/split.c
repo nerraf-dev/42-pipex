@@ -6,47 +6,47 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 18:07:42 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/03 18:11:36 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/06 17:22:48 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-static int	is_quote(char c)
+static void	skip_quote(char **str, char quote)
 {
-	return (c == '\'' || c == '\"');
+	(*str)++;
+	while (**str && **str != quote)
+		(*str)++;
+	if (**str)
+		(*str)++;
+}
+
+static void	skip_word(char **str)
+{
+	while (**str && **str != ' ' && **str != '\'' && **str != '\"')
+		(*str)++;
 }
 
 static int	count_words(char *str)
 {
 	int		count;
-	int		in_word;
-	int		i;
 	char	quote;
 
 	count = 0;
-	in_word = 0;
-	i = 0;
-	while (str[i])
+	while (*str)
 	{
-		if (str[i] == ' ' && !in_word)
-			i++;
-		else if (is_quote(str[i]))
+		if (*str == ' ')
+			str++;
+		else if (*str == '\'' || *str == '\"')
 		{
-			quote = str[i++];
-			while (str[i] && str[i] != quote)
-				i++;
-			if (str[i])
-				i++;
+			quote = *str;
+			skip_quote(&str, quote);
 			count++;
-			in_word = 0;
 		}
 		else
 		{
-			while (str[i] && str[i] != ' ' && !is_quote(str[i]))
-				i++;
+			skip_word(&str);
 			count++;
-			in_word = 0;
 		}
 	}
 	return (count);
@@ -61,7 +61,7 @@ static char	*get_next_word(char **str)
 	len = 0;
 	while (**str == ' ')
 		(*str)++;
-	if (is_quote(**str))
+	if (**str == '\'' || **str == '\"')
 	{
 		quote = *(*str)++;
 		while ((*str)[len] && (*str)[len] != quote)
@@ -71,7 +71,8 @@ static char	*get_next_word(char **str)
 	}
 	else
 	{
-		while ((*str)[len] && (*str)[len] != ' ' && !is_quote((*str)[len]))
+		while ((*str)[len] && (*str)[len] != ' ' && (*str)[len] != '\'' &&
+			(*str)[len] != '\"')
 			len++;
 		word = ft_substr(*str, 0, len);
 		*str += len;

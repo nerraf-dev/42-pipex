@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:00:48 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/03 18:22:08 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/06 19:58:05 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,28 @@
 # include <string.h>
 
 // pipe.c
-int		create_pipe(int *pipefd);
+void		create_pipe(int *pipefd);
+void		close_pipe(int *pipefd);
 
 // cmds.c
 void	execute_command(char *cmd, char **envp);
 
 // files.c
-void	open_files(char **argv, int *fd);
+// void	open_files(char **argv, int *fd);
 int		open_file(char *file, int flags);
 
+// paths.c
+char	*get_path(char *cmd, char **envp);
+
 // processes.c
-void	child_handler(int *fd, char **argv, char **envp);
+void	child_handler(int *pipefd, char **argv, char **envp);
 void	parent_handler(int *pipefd, char **argv, char **envp);
 void	main_cleanup(int *pipefd, int fd);
 
 // utils.c
 pid_t	fork_child(void);
-void	dup2_wrapper(int oldfd, int newfd);
-void	close_fds(int *fds, int count);
-// char	*get_path(char *cmd, char **envp);
-void	error(void);
+void	dup2_wrapper(int source_fd, int target_fd);
+void	exit_error(char *fn, char *msg);
 
 // split.c
 char	**split_command(char *str);
