@@ -6,6 +6,7 @@ obj/
 bin/
 build/
 pipexMedic/
+PIPEX_TESTER/
 
 *.out
 
