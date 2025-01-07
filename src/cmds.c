@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:26:09 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/06 21:34:34 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/07 12:27:37 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	execute_command(char *argv, char **envp)
 		perror("execve");
 		free(path);
 		free_command(cmd);
-		exit(EXIT_FAILURE);
+		exit(126);
 	}
 	free(path);
 	free_command(cmd);

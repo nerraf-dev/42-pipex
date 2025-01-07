@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 15:53:44 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/06 20:02:54 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/07 14:25:34 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,28 @@ static void	arg_error(void)
 int	main(int argc, char **argv, char **envp)
 {
 	int		pipefd[2];
-	pid_t	pid1;
+	pid_t	pid[2];
+	int		status[2];
 
-	if (!envp || !envp[0])
-		envp = NULL;
-	if (argc == 5)
-	{
-		create_pipe(pipefd);
-		pid1 = fork_child();
-		if (pid1 == 0)
-			child_handler(pipefd, argv, envp);
-		waitpid(pid1, NULL, 0);
-		parent_handler(pipefd, argv, envp);
-	}
-	else
+	if (argc != 5)
 		arg_error();
+	create_pipe(pipefd);
+	pid[0] = fork_child();
+	if (pid[0] == 0)
+	{
+		close(pipefd[0]);
+		child_handler(pipefd[1], argv, envp);
+	}
+	pid[1] = fork_child();
+	if (pid[1] == 0)
+	{
+		close(pipefd[1]);
+		parent_handler(pipefd[0], argv, envp);
+	}
 	close_pipe(pipefd);
-	return (0);
+	waitpid(pid[0], &status[0], 0);
+	waitpid(pid[1], &status[1], 0);
+	if (WIFEXITED(status[1]))
+		return (WEXITSTATUS(status[1]));
+	return (EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:37:01 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/06 17:03:34 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/07 14:22:03 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,22 @@
 static char	**get_paths(char **envp)
 {
 	char	*def_path;
+	char	*path_var;
 	int		i;
 
 	def_path = "/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin";
-	i = 0;
 	if (!envp || !envp[0])
-		envp = (char *[]){def_path, NULL};
+		return (ft_split(def_path, ':'));
+	i = 0;
 	while (envp[i] && ft_strnstr(envp[i], "PATH=", 5) == 0)
 		i++;
 	if (!envp[i])
-		envp = (char *[]){def_path, NULL};
-	else
-		envp[i] += 5;
-	return (ft_split(envp[i], ':'));
+		return (ft_split(def_path, ':'));
+	path_var = envp[i] + 5;
+	return (ft_split(path_var, ':'));
+	// else
+	// 	envp[i] += 5;
+	// return (ft_split(envp[i], ':'));
 }
 
 /**
@@ -114,7 +117,7 @@ char	*get_path(char *cmd, char **envp)
 	char	**paths;
 	char	*path;
 
-	if (!cmd || !envp)
+	if (!cmd)
 		return (NULL);
 	paths = get_paths(envp);
 	if (!paths)
