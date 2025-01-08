@@ -22,7 +22,7 @@ expected_output=$(cat input.txt | wc -w)
 actual_output=$(cat output.txt)
 
 if [ "$actual_output" == "$expected_output" ]; then
-    echo "Test 5 passed"
+    echo -e "${GREEN}Test 5 passed!${NC}"
 else
     echo "Test 5 failed"
     echo "Expected: $expected_output"

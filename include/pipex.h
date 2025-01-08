@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:00:48 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/07 12:13:46 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/08 14:05:41 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include <string.h>
 
 // pipe.c
-void		create_pipe(int *pipefd);
-void		close_pipe(int *pipefd);
+void	create_pipe(int *pipefd);
+void	close_pipe(int *pipefd);
 
 // cmds.c
 void	execute_command(char *cmd, char **envp);
@@ -50,6 +50,5 @@ void	exit_error(char *fn, char *msg);
 
 // split.c
 char	**split_command(char *str);
-
 
 #endif

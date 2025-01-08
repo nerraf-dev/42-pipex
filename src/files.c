@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:32:01 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/06 20:08:48 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/08 14:00:31 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,3 @@ int	open_file(char *file, int flags)
 	}
 	return (fd);
 }
-

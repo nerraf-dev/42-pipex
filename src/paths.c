@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:37:01 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/07 14:22:03 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/08 14:00:55 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ static char	**get_paths(char **envp)
 		return (ft_split(def_path, ':'));
 	path_var = envp[i] + 5;
 	return (ft_split(path_var, ':'));
-	// else
-	// 	envp[i] += 5;
-	// return (ft_split(envp[i], ':'));
 }
 
 /**

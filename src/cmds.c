@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:26:09 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/07 12:27:37 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/08 14:00:14 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	free_command(char **cmd)
 	int	i;
 
 	if (!cmd)
-		return	;
+		return ;
 	i = 0;
 	while (cmd[i])
 	{
@@ -50,7 +50,6 @@ void	execute_command(char *argv, char **envp)
 		command_not_found(cmd);
 	if (execve(path, cmd, envp) == -1)
 	{
-		// ft_printf_fd(2, "pipex: line 1: %s: command not found\n", cmd[0]);
 		perror("execve");
 		free(path);
 		free_command(cmd);
@@ -59,43 +58,3 @@ void	execute_command(char *argv, char **envp)
 	free(path);
 	free_command(cmd);
 }
-
-// void	execute_command(char *argv, char **envp)
-// {
-// 	char	**cmd;
-// 	int		i;
-// 	char	*path;
-
-// 	i = -1;
-// 	cmd = split_command(argv);
-// 	if (!cmd || !cmd[0])
-// 	{
-// 		ft_printf_fd(2, "pipex: command not found\n");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	path = get_path(cmd[0], envp);
-// 	if (!path)
-// 	{
-// 		while (cmd[++i])
-// 			free(cmd[i]);
-// 		free(cmd);
-// 		ft_printf_fd(2, "pipex: %s: command not found\n", cmd[0]);
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	if (execve(path, cmd, envp) == -1)
-// 	{
-// 		perror("execve");
-// 		free(path);
-// 		i = -1;
-// 		while (cmd[++i])
-// 			free(cmd[i]);
-// 		free(cmd);
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	free(path);
-// 	i = -1;
-// 	while (cmd[++i])
-// 		free(cmd[i]);
-// 	free(cmd);
-// }
-

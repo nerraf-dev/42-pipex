@@ -6,12 +6,11 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 16:47:52 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/06 19:33:05 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/08 14:01:21 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
-
 
 /**
  * @brief Creates a pipe and stores the file descriptors in the provided array.
