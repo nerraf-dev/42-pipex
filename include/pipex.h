@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:00:48 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/02 12:52:44 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/08 14:05:41 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,30 @@
 # include <string.h>
 
 // pipe.c
-int		create_pipe(int *pipefd);
+void	create_pipe(int *pipefd);
+void	close_pipe(int *pipefd);
 
 // cmds.c
 void	execute_command(char *cmd, char **envp);
 
 // files.c
-void	open_files(char **argv, int *fd);
+// void	open_files(char **argv, int *fd);
 int		open_file(char *file, int flags);
 
+// paths.c
+char	*get_path(char *cmd, char **envp);
+
 // processes.c
-void	first_child_handler(int *pipefd, int fd, char **argv, char **envp);
-void	second_child_handler(int *pipefd, char **argv, char **envp);
+void	child_handler(int pipe_write, char **argv, char **envp);
+void	parent_handler(int pipe_read, char **argv, char **envp);
 void	main_cleanup(int *pipefd, int fd);
 
 // utils.c
 pid_t	fork_child(void);
-void	dup2_wrapper(int oldfd, int newfd);
-void	close_fds(int *fds, int count);
+void	dup2_wrapper(int source_fd, int target_fd);
+void	exit_error(char *fn, char *msg);
+
+// split.c
+char	**split_command(char *str);
 
 #endif

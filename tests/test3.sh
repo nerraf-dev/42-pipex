@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script tests the error handling of the pipex program when an invalid command is given as an argument.
+
 # Define color codes
 GREEN='\033[0;32m'
 RED='\033[0;31m'
@@ -8,33 +10,34 @@ NC='\033[0m' # No Color
 # Determine the absolute path to the pipex executable
 PIPEX_PATH="$(cd "$(dirname "$0")/.." && pwd)/pipex"
 
-# Test 3: invalid_command
+# Test: invalid_command
 echo
-echo "Test 3: invalid_command"
+echo "Test: invalid_command"
 # Create input files
 echo "Hello, World!" > input.txt
 
-# Run your program with an invalid command and capture the error output
-error_output=$("$PIPEX_PATH" input.txt "invalid_command" "wc -w" output.txt 2>&1)
+# Run the shell command
+no-cmd < input.txt 2> expected_error.txt | wc -w > expected_output.txt
+expected_status=$?
 
-# Check if the output file was not created
-if [ ! -f output.txt ]; then
-    echo -e "${GREEN}Test 3 passed${NC}"
-else
-    echo -e "${RED}Test 3 failed${NC}"
-    rm -f output.txt
-fi
+# Run the pipex command
+"$PIPEX_PATH" input.txt "no-cmd" "wc -w" output.txt 2> error.txt
+pipex_status=$?
 
-# Check for expected error messages
-expected_error1="command not found"
-expected_error2="open: No such file or directory"
-if echo "$error_output" | grep -q "$expected_error1" && echo "$error_output" | grep -q "$expected_error2"; then
-    echo -e "${GREEN}Error messages are correct${NC}"
+# Compare the outputs
+if diff -q expected_output.txt output.txt && tail -n +2 expected_error.txt | diff -q - <(tail -n +2 error.txt) && [ $expected_status -eq $pipex_status ]; then
+    echo -e "${GREEN}Test passed!${NC}"
 else
-    echo -e "${RED}Error messages are incorrect${NC}"
-    echo "Expected error messages: $expected_error1, $expected_error2"
-    echo "Actual error message: $error_output"
+    echo -e "${RED}Test failed!${NC}"
+    echo "Differences in output:"
+    cat expected_output.txt
+    cat output.txt
+    echo "Differences in error:"
+    cat expected_error.txt
+    cat error.txt
+    echo "Expected exit status: $expected_status"
+    echo "Pipex exit status: $pipex_status"
 fi
 
 # Clean up
-rm -f input.txt
+rm -f input.txt expected_output.txt output.txt expected_error.txt error.txt

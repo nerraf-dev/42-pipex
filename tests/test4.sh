@@ -22,7 +22,7 @@ expected_output="Hello, World!"
 actual_output=$(cat output.txt)
 
 if [ "$actual_output" == "$expected_output" ]; then
-    echo "Test 4 passed"
+    echo -e "${GREEN}Test 4 passed!${NC}"
 else
     echo "Test 4 failed"
     echo "Expected: $expected_output"

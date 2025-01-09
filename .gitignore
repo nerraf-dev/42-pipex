@@ -6,6 +6,9 @@ obj/
 bin/
 build/
 pipexMedic/
+PIPEX_TESTER/
+pipex-tester/
+pipex_tester_42/
 
 *.out
 
@@ -19,3 +22,12 @@ input.txt
 
 libft.a
 libgnl.a
+test-out.txt
+expected_output.txt
+expected_error.txt
+error.txt
+input
+
+o.txt
+pipex.code-workspace
+ws_pipex.code-workspace
