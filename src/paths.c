@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:37:01 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/08 20:11:37 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/10 15:28:31 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ char	*get_path(char *cmd, char **envp)
 	if (!paths)
 		return (NULL);
 	path = find_cmd_path(paths, cmd);
-	// ft_printf("path: %s\n", path);
 	free_paths(paths);
 	return (path);
 }
