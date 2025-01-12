@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:26:09 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/10 15:33:12 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/12 13:10:27 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	execute_command(char *argv, char **envp)
 	// 	ft_printf("Arg %d: %s\n", i, cmd[i]);
 	// 	i++;
 	// }
+	// ft_printf("Executing command: %s\n", path);
 	if (execve(path, cmd, envp) == -1)
 	{
 		perror("execve");

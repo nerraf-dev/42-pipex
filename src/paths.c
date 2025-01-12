@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:37:01 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/10 15:28:31 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/11 15:48:49 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static char	**get_paths(char **envp)
 	if (!envp[i])
 		return (ft_split(def_path, ':'));
 	path_var = envp[i] + 5;
+	// ft_printf("Path var: %s\n", path_var);
 	return (ft_split(path_var, ':'));
 }
 
@@ -113,12 +114,19 @@ char	*get_path(char *cmd, char **envp)
 {
 	char	**paths;
 	char	*path;
+	// int		i;
 
 	if (!cmd)
 		return (NULL);
 	paths = get_paths(envp);
 	if (!paths)
 		return (NULL);
+	// i = 0;
+	// while (paths[i])
+	// {
+	// 	ft_printf("Path %d: %s\n", i, paths[i]);
+	// 	i++;
+	// }
 	path = find_cmd_path(paths, cmd);
 	free_paths(paths);
 	return (path);
