@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:37:01 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/11 15:48:49 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/15 20:40:31 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static char	**get_paths(char **envp)
 	if (!envp[i])
 		return (ft_split(def_path, ':'));
 	path_var = envp[i] + 5;
-	// ft_printf("Path var: %s\n", path_var);
 	return (ft_split(path_var, ':'));
 }
 
@@ -98,6 +97,11 @@ static void	free_paths(char **paths)
 	free(paths);
 }
 
+static int	is_absolute_path(char *path)
+{
+	return (path && path[0] == '/');
+}
+
 /**
  * get_path - Retrieves the full path of a given command.
  * @cmd: The command to find the path for.
@@ -114,19 +118,18 @@ char	*get_path(char *cmd, char **envp)
 {
 	char	**paths;
 	char	*path;
-	// int		i;
 
 	if (!cmd)
 		return (NULL);
+	if (is_absolute_path(cmd))
+	{
+		if (access(cmd, F_OK) == 0)
+			return (ft_strdup(cmd));
+		return (NULL);
+	}
 	paths = get_paths(envp);
 	if (!paths)
 		return (NULL);
-	// i = 0;
-	// while (paths[i])
-	// {
-	// 	ft_printf("Path %d: %s\n", i, paths[i]);
-	// 	i++;
-	// }
 	path = find_cmd_path(paths, cmd);
 	free_paths(paths);
 	return (path);

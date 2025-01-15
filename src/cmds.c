@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:26:09 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/12 13:10:27 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/01/15 19:14:37 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	execute_command(char *argv, char **envp)
 {
 	char	**cmd;
 	char	*path;
-	// int		i;
 
 	cmd = split_command(argv);
 	if (!cmd || !cmd[0])
@@ -49,13 +48,6 @@ void	execute_command(char *argv, char **envp)
 	path = get_path(cmd[0], envp);
 	if (!path)
 		command_not_found(cmd);
-	// i = 0;
-	// while (cmd[i])
-	// {
-	// 	ft_printf("Arg %d: %s\n", i, cmd[i]);
-	// 	i++;
-	// }
-	// ft_printf("Executing command: %s\n", path);
 	if (execve(path, cmd, envp) == -1)
 	{
 		perror("execve");
