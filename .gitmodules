@@ -1,6 +1,6 @@
 [submodule "lib/libft"]
 	path = lib/libft
-	url = git@github.com:nerraf-dev/42-libft.git
+	url = https://github.com/nerraf-dev/42-libft.git
 [submodule "lib/gnl"]
 	path = lib/gnl
-	url = git@github.com:nerraf-dev/42-get_next_line.git
+	url = https://github.com/nerraf-dev/42-get_next_line.git
