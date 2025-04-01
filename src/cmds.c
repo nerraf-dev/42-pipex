@@ -6,13 +6,13 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:26:09 by sfarren           #+#    #+#             */
-/*   Updated: 2025/01/15 19:14:37 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/04/01 19:14:42 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-static void	free_command(char **cmd)
+void	free_command(char **cmd)
 {
 	int	i;
 
@@ -27,7 +27,7 @@ static void	free_command(char **cmd)
 	free(cmd);
 }
 
-static void	command_not_found(char **cmd)
+void	command_not_found(char **cmd)
 {
 	if (cmd && cmd[0])
 		ft_printf_fd(2, "pipex: line 1: %s: command not found\n", cmd[0]);

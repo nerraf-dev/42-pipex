@@ -6,7 +6,7 @@
 #    By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/12 11:30:00 by sfarren           #+#    #+#              #
-#    Updated: 2025/04/01 14:55:45 by sfarren          ###   ########.fr        #
+#    Updated: 2025/04/01 20:50:16 by sfarren          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,13 +40,15 @@ SRC_FILES = pipex.c \
 
 BONUS_SRC_FILES = pipex_bonus.c \
 					utils_bonus.c \
-					pipe.c \
-					files.c \
 					cmds_bonus.c \
-					paths.c \
-					processes.c \
+					pipe_bonus.c \
+					pipe.c \
 					utils.c \
-					split.c
+					cmds.c \
+					split.c \
+					paths.c \
+					files.c \
+					# utils_bonus.c \
 
 SRC = $(foreach file, $(SRC_FILES), $(SRC_DIR)/$(file))
 BONUS_SRC = $(foreach file, $(BONUS_SRC_FILES), $(SRC_DIR)/$(file))

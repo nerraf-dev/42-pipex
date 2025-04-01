@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:00:48 by sfarren           #+#    #+#             */
-/*   Updated: 2025/04/01 12:23:43 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/04/01 19:15:04 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	close_pipe(int *pipefd);
 
 // cmds.c
 void	execute_command(char *cmd, char **envp);
+void	free_command(char **cmd);
+void	command_not_found(char **cmd);
 
 // files.c
 // void	open_files(char **argv, int *fd);

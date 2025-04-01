@@ -1,17 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_bonus.h                                      :+:      :+:    :+:   */
+/*   processes_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/01 14:42:03 by sfarren           #+#    #+#             */
-/*   Updated: 2025/04/01 20:01:21 by sfarren          ###   ########.fr       */
+/*   Created: 2024/12/29 11:27:27 by sfarren           #+#    #+#             */
+/*   Updated: 2025/04/01 19:47:56 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	handle_pipes(int argc, char **argv, char **envp);
-void	close_all_pipes(int **pipes, int num_pipes);
-void	command_not_found(char **cmd);
-void	create_pipes(int **pipes, int num_pipes);
-// void	exe_command(char *cmd, char **envp, int input_fd, int output_fd);
+#include "../include/pipex.h"
+#include "../include/pipex_bonus.h"
+
+void	setup_processes(int **pipes, int *pids, int num_pipes,
+			char **argv, char **envp)
+{
+
+}
