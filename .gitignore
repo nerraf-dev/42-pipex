@@ -9,6 +9,7 @@ pipexMedic/
 PIPEX_TESTER/
 pipex-tester/
 pipex_tester_42/
+42_pipex_tester/
 
 *.out
 
@@ -29,6 +30,5 @@ error.txt
 input
 
 o.txt
-pipex.code-workspace
-ws_pipex.code-workspace
-42-pipex.code-workspace
+*pipex.code-workspace
+*ws_pipex.code-workspace
