@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:26:09 by sfarren           #+#    #+#             */
-/*   Updated: 2025/04/01 14:59:54 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/04/01 18:36:33 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,13 @@ void	command_not_found(char **cmd)
 	exit(127);
 }
 
-void	execute_command(char *argv, char **envp)
+void exe_command(char *cmd, char **envp, int input_fd, int output_fd)
 {
-	char	**cmd;
-	char	*path;
-
-	cmd = split_command(argv);
-	if (!cmd || !cmd[0])
-		command_not_found(cmd);
-	path = get_path(cmd[0], envp);
-	if (!path)
-		command_not_found(cmd);
-	if (execve(path, cmd, envp) == -1)
-	{
-		perror("execve");
-		free(path);
-		free_command(cmd);
-		exit(126);
-	}
-	free(path);
-	free_command(cmd);
+	dup2_wrapper(input_fd, STDIN_FILENO);
+	dup2_wrapper(output_fd, STDOUT_FILENO);
+	close(input_fd);
+	close(output_fd);
+	execve(get_command_path(cmd), ft_split(cmd, ' '), envp);
+	perror("execve");
+	exit(EXIT_FAILURE);
 }

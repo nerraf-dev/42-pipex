@@ -6,22 +6,11 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 13:12:14 by sfarren           #+#    #+#             */
-/*   Updated: 2025/04/01 14:50:44 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/04/01 18:38:18 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
-
-void execute_command(char *cmd, char **envp, int input_fd, int output_fd)
-{
-	dup2_wrapper(input_fd, STDIN_FILENO);
-	dup2_wrapper(output_fd, STDOUT_FILENO);
-	close(input_fd);
-	close(output_fd);
-	execve(get_command_path(cmd), ft_split(cmd, ' '), envp);
-	perror("execve");
-	exit(EXIT_FAILURE);
-}
 
 /**
  * @brief Waits for all child processes to finish.
@@ -50,6 +39,35 @@ void	wait_for_children(int num_children)
 			ft_printf("Child %d exited with status %d\n", i, WEXITSTATUS(status));
 		else if (WIFSIGNALED(status))
 			ft_printf("Child %d was terminated by signal %d\n", i, WTERMSIG(status));
+		i++;
+	}
+}
+
+/**
+ * @brief Closes all unused file descriptors for the current process.
+ *
+ * This function iterates through all the pipes and closes any file descriptors
+ * that are not needed for the current command. This is essential to avoid
+ * resource leaks and ensure proper behavior of the pipeline.
+ *
+ * @param pipes A dynamically allocated array of pipes (each pipe is an int[2]).
+ * @param num_pipes The total number of pipes.
+ * @param current The index of the current command in the pipeline.
+ */
+void	close_unused_fds(int **pipes, int num_pipes, int current)
+{
+	int	i;
+
+	i = 0;
+	while (i < num_pipes)
+	{
+		// Close the read end of the pipe if it's not needed
+		if (i != current - 1)
+			close(pipes[i][0]);
+
+		// Close the write end of the pipe if it's not needed
+		if (i != current)
+			close(pipes[i][1]);
 		i++;
 	}
 }
@@ -104,7 +122,7 @@ void	handle_pipes(int argc, char **argv, char **envp)
 		if (fork_child() == 0)
 		{
 			close_unused_fds(pipes, argc - 4, i);
-			execute_command(argv[i + 2], envp, input_fd, output_fd);
+			exe_command(argv[i + 2], envp, input_fd, output_fd);
 		}
 
 		close(input_fd);
