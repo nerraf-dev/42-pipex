@@ -25,6 +25,7 @@ echo
 echo "Summary:"
 echo -e "${GREEN}Passed: $passed${NC}"
 echo -e "${RED}Failed: $failed${NC}"
-echo -e "${RED}* $failed_tests${NC}"
 
-
+if [ $failed -gt 0 ]; then
+    echo -e "${RED}* $failed_tests${NC}"
+fi
