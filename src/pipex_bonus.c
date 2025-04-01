@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/10 15:53:44 by sfarren           #+#    #+#             */
-/*   Updated: 2025/04/01 13:20:36 by sfarren          ###   ########.fr       */
+/*   Created: 2025/04/01 13:12:21 by sfarren           #+#    #+#             */
+/*   Updated: 2025/04/01 14:49:32 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
+#include "../include/pipex_bonus.h"
 
 static void	arg_error(void)
 {
@@ -19,38 +20,22 @@ static void	arg_error(void)
 	exit(EXIT_FAILURE);
 }
 
-int	push_swap(int argc, char **argv, char **envp)
-{
-	int		pipefd[2];
-	pid_t	pid[2];
-	int		status[2];
-
-	if (argc != 5)
-		arg_error();
-	create_pipe(pipefd);
-	pid[0] = fork_child();
-	if (pid[0] == 0)
-	{
-		close(pipefd[0]);
-		child_handler(pipefd[1], argv, envp);
-	}
-	pid[1] = fork_child();
-	if (pid[1] == 0)
-	{
-		close(pipefd[1]);
-		parent_handler(pipefd[0], argv, envp);
-	}
-	close_pipe(pipefd);
-	waitpid(pid[0], &status[0], 0);
-	waitpid(pid[1], &status[1], 0);
-	if (WIFEXITED(status[1]))
-		return (WEXITSTATUS(status[1]));
-	return (EXIT_FAILURE);
-}
 
 int	main(int argc, char **argv, char **envp)
 {
+	// int		pipefd[2];
+	// pid_t	pid[2];
+	// int		status[2];
+
 	if (argc < 5)
 		arg_error();
-	return (push_swap(argc, argv, envp));
+	else
+	{
+		ft_printf("Multiple pipes needed\n");
+		// count number of pipes needed, argc - 4
+		// create pipes
+		handle_pipes(argc, argv, envp);
+
+	}
+	return (0);
 }

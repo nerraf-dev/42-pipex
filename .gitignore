@@ -8,7 +8,7 @@ build/
 pipexMedic/
 PIPEX_TESTER/
 pipex-tester/
-pipex_tester_42/
+*pipex_tester/
 
 *.out
 
