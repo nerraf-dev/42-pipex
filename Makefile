@@ -6,7 +6,7 @@
 #    By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/12 11:30:00 by sfarren           #+#    #+#              #
-#    Updated: 2025/04/01 12:08:12 by sfarren          ###   ########.fr        #
+#    Updated: 2025/04/02 12:50:09 by sfarren          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ ifeq ($(UNAME_S), Darwin)
 else
 	CC = clang
 endif
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address -I$(INCLUDE_DIR)
+CFLAGS = -Wall -Wextra -Werror -I$(INCLUDE_DIR)
+SAN_FLAGS = -fsanitize=address -g
 
 NAME = pipex
 SRC_DIR = src
