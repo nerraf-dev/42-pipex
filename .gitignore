@@ -32,3 +32,5 @@ input
 o.txt
 *pipex.code-workspace
 *ws_pipex.code-workspace
+pipex_debug
+tester_pipex.sh

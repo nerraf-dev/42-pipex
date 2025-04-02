@@ -6,7 +6,7 @@
 #    By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/12 11:30:00 by sfarren           #+#    #+#              #
-#    Updated: 2025/04/02 12:50:09 by sfarren          ###   ########.fr        #
+#    Updated: 2025/04/02 13:19:25 by sfarren          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ else
 	CC = clang
 endif
 CFLAGS = -Wall -Wextra -Werror -I$(INCLUDE_DIR)
-SAN_FLAGS = -fsanitize=address -g
+DEBUG_FLAGS = $(CFLAGS) -fsanitize=address -g
 
 NAME = pipex
 SRC_DIR = src
@@ -66,5 +66,11 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+# Debug Build
+debug: $(LIBFT)
+	@echo "Building debug version..."
+	$(CC) $(DEBUG_FLAGS) -o $(NAME)_debug $(SRC) -L$(LIBFT_DIR) -lft
+	@echo "Build complete: $(NAME)_debug"
 
 .PHONY: all clean fclean re
