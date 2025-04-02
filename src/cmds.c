@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 17:26:09 by sfarren           #+#    #+#             */
-/*   Updated: 2025/04/02 12:26:40 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/04/02 13:21:25 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,7 @@ static void	free_command(char **cmd)
 static void	command_not_found(char **cmd)
 {
 	if (cmd && cmd[0])
-	{
 		ft_printf_fd(2, "pipex: No such file or directory: %s\n", cmd[0]);
-		// if (cmd[0][0] == '/' || (cmd[0][0] == '.' && cmd[0][1] == '/'))
-		// 	ft_printf_fd(2, "pipex: %s: No such file or directory\n", cmd[0]);
-		// else
-		// 	ft_printf_fd(2, "pipex: %s: Command not found\n", cmd[0]);
-	}
 	else
 		ft_printf_fd(2, "pipex: Command not found\n");
 	free_command(cmd);
