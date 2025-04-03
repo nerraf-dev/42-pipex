@@ -6,7 +6,7 @@
 #    By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/12 11:30:00 by sfarren           #+#    #+#              #
-#    Updated: 2025/04/01 20:50:16 by sfarren          ###   ########.fr        #
+#    Updated: 2025/04/03 14:56:21 by sfarren          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ BONUS_SRC_FILES = pipex_bonus.c \
 					utils_bonus.c \
 					cmds_bonus.c \
 					pipe_bonus.c \
+					processes_bonus.c \
 					pipe.c \
 					utils.c \
 					cmds.c \

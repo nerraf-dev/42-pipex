@@ -6,7 +6,7 @@
 /*   By: sfarren <sfarren@student.42malaga.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 14:10:02 by sfarren           #+#    #+#             */
-/*   Updated: 2025/04/01 20:10:29 by sfarren          ###   ########.fr       */
+/*   Updated: 2025/04/03 11:31:04 by sfarren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ pid_t	fork_child(void)
 			perror("Fork error");
 		exit(EXIT_FAILURE);
 	}
-	ft_printf("Forked process with PID: %d\n", pid);
+	// ft_printf("Forked process with PID: %d\n", pid);
 	return (pid);
 }
 

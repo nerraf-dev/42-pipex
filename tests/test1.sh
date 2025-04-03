@@ -34,4 +34,4 @@ else
 fi
 
 # Clean up
-rm input.txt output.txt
+# rm input.txt output.txt
